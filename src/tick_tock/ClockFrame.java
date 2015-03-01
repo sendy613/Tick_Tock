@@ -41,7 +41,7 @@ public static void main(String args[]) {
 	int sec = Integer.parseInt(array[2]);
 	frame.testAlarm = new TimeNow(hour,min,sec);
 	
-	// animation thread- bec you are constantly calling repaint
+	
 	Thread thread = new Thread() {
 		public void run() {
 			while (true) {
