@@ -88,12 +88,17 @@ public class TimeNow {
 		
 	}
 	
+	//take out at end
+	public String toString(){
+		return (getHours() + " " + getMin() + " "+ getSeconds() );
+	}
+	
 	public static void main(String args[]){
 		TimeNow now = new TimeNow();
-		while(now.getMin()!=2){
+	/*	while(now.getMin()!=2){
 		System.out.println(now.hours+ " "+ now.min + " " + now.seconds);
 		now.tick();
-		}
+		}*/
 		//System.out.println(now.hours+ " "+ now.min + " " + now.seconds);
 	}
 }
