@@ -26,6 +26,11 @@ public class TimeNow {
 		this.seconds = Integer.parseInt(array[2]);
 				
 	}
+	public TimeNow(int hours, int min, int sec){
+		this.hours = hours;
+		this.min = min;
+		this.seconds = sec;
+	}
 
 	public int getHours() {
 		return hours;
