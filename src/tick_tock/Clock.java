@@ -1,13 +1,15 @@
 package tick_tock;
 
-//coord for the clock numbers, face and hands
-public class Clock {
-private TimeNow time;
-public Clock(){
-	this.time = new TimeNow();
-}
+//coordinates for the clock numbers, face and hands
 
-public TimeNow getTime(){
-	return time;
-}
+public class Clock {
+	private TimeNow time;
+
+	public Clock() {
+		time = new TimeNow();
+	}
+
+	public TimeNow getTime() {
+		return time;
+	}
 }
