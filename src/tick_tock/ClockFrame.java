@@ -2,14 +2,23 @@ package tick_tock;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Scanner;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class ClockFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	private PaintComponent comp;
+	// private PaintComponentAlarm alarmComp;
+	private JButton button;
+	private JTextField textBox;
 
 	// take out after
 	private TimeNow testAlarm;
@@ -24,6 +33,28 @@ public class ClockFrame extends JFrame {
 		contentPane.setLayout(new BorderLayout());
 		this.comp = new PaintComponent();
 		contentPane.add(comp, BorderLayout.CENTER);
+		JPanel panel = new JPanel();
+		panel.setLayout(new FlowLayout());
+		// this.alarmComp = new PaintComponentAlarm();
+		// panel.add(alarmComp);
+		this.button = new JButton("Enter");
+		this.textBox = new JTextField();
+		textBox.setColumns(10);
+		button.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String input = textBox.getText();
+				// once we can add an Alarms to the PaintComponent we can add
+				// this
+				// input as an alarm
+			}
+
+		});
+		panel.add(textBox);
+		panel.add(button);
+
+		contentPane.add(panel, BorderLayout.EAST);
 	}
 
 	public static void main(String args[]) {
@@ -45,8 +76,7 @@ public class ClockFrame extends JFrame {
 				while (true) {
 
 					// take out after
-					if (frame.comp.getClock().getTime()
-							.equalsHoursMin(frame.testAlarm)) {
+					if (frame.comp.getClock().getTime().equalsHoursMin(frame.testAlarm)) {
 						System.out.println("alarm");
 					}
 

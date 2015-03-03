@@ -46,8 +46,12 @@ public class PaintComponent extends JComponent {
 			}
 		} catch (IOException e) {
 		}
+<<<<<<< HEAD
 
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+=======
+		g.drawImage(image, 0, 0, 500, 500, null);
+>>>>>>> origin/master
 		g.setColor(Color.BLACK);
 		g.drawString(clock.getTime().toString(), 10, 10);
 		g.fillOval(25, 10, 450, 450);
