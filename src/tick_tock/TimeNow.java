@@ -2,12 +2,6 @@ package tick_tock;
 
 import java.sql.Time;
 
-/*Time class - private int hours minutes seconds
- constructor gets hours minutes seconds from Java's time class. (.currTimeMillis)
- .equals() method
- increment method - has all the logic for time (if==60) minutes++ etc
- */
-
 //everything starts with 0
 public class TimeNow {
 	private int hours;
@@ -94,12 +88,4 @@ public class TimeNow {
 		return (getHours() + ": " + getMin() + ":" + getSeconds());
 	}
 
-	public static void main(String args[]) {
-		TimeNow now = new TimeNow();
-		/*
-		 * while(now.getMin()!=2){ System.out.println(now.hours+ " "+ now.min +
-		 * " " + now.seconds); now.tick(); }
-		 */
-		// System.out.println(now.hours+ " "+ now.min + " " + now.seconds);
-	}
 }

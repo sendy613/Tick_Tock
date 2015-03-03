@@ -7,6 +7,8 @@ import java.util.Scanner;
 import javax.swing.JFrame;
 
 public class ClockFrame extends JFrame {
+	private static final long serialVersionUID = 1L;
+
 	private PaintComponent comp;
 
 	// take out after
@@ -62,5 +64,6 @@ public class ClockFrame extends JFrame {
 			}
 		};
 		thread.start();
+		keyboard.close();
 	}
 }
