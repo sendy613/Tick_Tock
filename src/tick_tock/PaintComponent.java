@@ -13,9 +13,21 @@ public class PaintComponent extends JComponent {
 
 	private static final long serialVersionUID = 1L;
 	private Clock clock;
+	private Image TwelveSixAM;
+	private Image SixSix;
+	private Image SixEightPM;
+	private Image EightTwelvePM;
 
 	public PaintComponent() {
 		this.clock = new Clock();
+		try {
+			this.TwelveSixAM = ImageIO.read(new File("12-6am.png"));
+			this.SixSix = ImageIO.read(new File("6-6.png"));
+			this.SixEightPM = ImageIO.read(new File("6-8pm.png"));
+			this.EightTwelvePM = ImageIO.read(new File("8-12pm.png"));
+
+		} catch (IOException e) {
+		}
 	}
 
 	public Clock getClock() {
@@ -34,24 +46,17 @@ public class PaintComponent extends JComponent {
 		int seconds = clock.getTime().getSeconds();
 
 		Image image = null;
-		try {
-			if (hours >= 0 && hours <= 6) {
-				image = ImageIO.read(new File("12-6am.png"));
-			} else if (hours >= 7 && hours <= 18) {
-				image = ImageIO.read(new File("6-6.png"));
-			} else if (hours == 19 || hours == 20) {
-				image = ImageIO.read(new File("6-8pm.png"));
-			} else if (hours == 21 || hours == 22 || hours == 23) {
-				image = ImageIO.read(new File("8-12pm.png"));
-			}
-		} catch (IOException e) {
+		if (hours >= 0 && hours <= 6) {
+			image = TwelveSixAM;
+		} else if (hours >= 7 && hours <= 18) {
+			image = SixSix;
+		} else if (hours == 19 || hours == 20) {
+			image = SixEightPM;
+		} else if (hours == 21 || hours == 22 || hours == 23) {
+			image = EightTwelvePM;
 		}
-<<<<<<< HEAD
 
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
-=======
-		g.drawImage(image, 0, 0, 500, 500, null);
->>>>>>> origin/master
 		g.setColor(Color.BLACK);
 		g.drawString(clock.getTime().toString(), 10, 10);
 		g.fillOval(25, 10, 450, 450);
@@ -70,16 +75,13 @@ public class PaintComponent extends JComponent {
 		g.fillOval(245, 225, 10, 10);
 
 		// handles
-		g.drawLine(250, 230, coord.getX(seconds) * 10 + 25,
-				coord.getY(seconds) * 10 + 10); // seconds
-		g.drawLine(250, 230, coord.getX(minutes) * 10 + 25,
-				coord.getY(minutes) * 10 + 10); // minutes
+		g.drawLine(250, 230, coord.getX(seconds) * 10 + 25, coord.getY(seconds) * 10 + 10); // seconds
+		g.drawLine(250, 230, coord.getX(minutes) * 10 + 25, coord.getY(minutes) * 10 + 10); // minutes
 		if (hours > 12) {
 			hours -= 12;
 		}
 		int hourPointer = hours * 5 + (minutes / 12);
-		g.drawLine(250, 230, coord.getX(hourPointer) * 10 + 25,
-				coord.getY(hourPointer) * 10 + 10); // hours
-		
+		g.drawLine(250, 230, coord.getX(hourPointer) * 10 + 25, coord.getY(hourPointer) * 10 + 10); // hours
+
 	}
 }
