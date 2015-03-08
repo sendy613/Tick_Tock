@@ -94,8 +94,8 @@ public class PaintComponentClock extends JComponent {
 			hours -= 12;
 		}
 		int hourPointer = hours * 5 + (minutes / 12);
-		g.drawLine(radiusWithMargin, radiusWithMargin, coord.getX(hourPointer),
-				coord.getY(hourPointer)); // hours
+		g.drawLine(radiusWithMargin, radiusWithMargin,
+				coord.getHoursX(hourPointer), coord.getHoursY(hourPointer)); // hours
 
 	}
 }

@@ -8,21 +8,22 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 
-public class PaintComponentAlarm extends JComponent{
+public class PaintComponentAlarm extends JComponent {
 
 	private static final long serialVersionUID = 1L;
-	
-	public PaintComponentAlarm(){
-		
-	}
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		Image image = null;
+	private Image image;
+
+	public PaintComponentAlarm() {
+		image = null;
 		try {
 			image = ImageIO.read(new File("alarmRing.png"));
 		} catch (IOException e) {
 		}
-		g.drawImage(image, 500, 250, 100, 100, null);
 	}
-	
+
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.drawImage(image, 0, 250, 100, 100, null);
+	}
+
 }
