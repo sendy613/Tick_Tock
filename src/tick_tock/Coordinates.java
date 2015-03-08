@@ -22,14 +22,14 @@ public class Coordinates {
 	public int getHoursY(int numOutOf60) {
 		int degrees = numOutOf60 * 6;
 		double radians = degrees * Math.PI / 180;
-		double x = (radius + clockMargin) + (radius - 50) * Math.cos(radians);
+		double x = (radius + clockMargin) + (radius - 80) * Math.sin(radians);
 		return (int) x;
 	}
 
 	public int getHoursX(int numOutOf60) {
 		int degrees = numOutOf60 * 6;
 		double radians = degrees * Math.PI / 180;
-		double x = (radius + clockMargin) + (radius - 50) * Math.cos(radians);
+		double x = (radius + clockMargin) + (radius - 80) * Math.cos(radians);
 		return (int) x;
 	}
 
