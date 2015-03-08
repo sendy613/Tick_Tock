@@ -24,10 +24,7 @@ public class Coordinates {
 	public int getHoursY(int numOutOf60) {
 		int degrees = numOutOf60 * 6;
 		double radians = degrees * Math.PI / 180;
-<<<<<<< HEAD
 		radians -= 90;
-=======
->>>>>>> origin/master
 		double x = (radius + clockMargin) + (radius - 80) * Math.sin(radians);
 		return (int) x;
 	}
@@ -35,10 +32,7 @@ public class Coordinates {
 	public int getHoursX(int numOutOf60) {
 		int degrees = numOutOf60 * 6;
 		double radians = degrees * Math.PI / 180;
-<<<<<<< HEAD
 		radians -= 90;
-=======
->>>>>>> origin/master
 		double x = (radius + clockMargin) + (radius - 80) * Math.cos(radians);
 		return (int) x;
 	}
