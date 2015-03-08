@@ -5,23 +5,21 @@ import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Scanner;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 public class ClockFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 
-	private PaintComponentClock comp;
-	// private PaintComponentAlarm alarmComp;
+	private PaintComponent comp;
 	private JButton button;
-	private JTextField textBox;
-
-	// take out after
-	private TimeNow testAlarm;
+	private JComboBox<Integer> hoursList;
+	private JComboBox<Integer> minList;
+	private JPanel eastPanel;
 
 	public ClockFrame() {
 		setSize(700, 525);
@@ -31,56 +29,45 @@ public class ClockFrame extends JFrame {
 
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new BorderLayout());
-		this.comp = new PaintComponentClock();
+		this.comp = new PaintComponent();
 		contentPane.add(comp, BorderLayout.CENTER);
-		JPanel panel = new JPanel();
-		panel.setLayout(new FlowLayout());
-		// this.alarmComp = new PaintComponentAlarm();
-		// panel.add(alarmComp);
+		eastPanel = new JPanel();
+		eastPanel.setLayout(new FlowLayout());
 		this.button = new JButton("Enter");
-		this.textBox = new JTextField();
-		textBox.setColumns(10);
-		button.addActionListener(new ActionListener() {
+		Integer[] hours = new Integer[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
+				12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23 };
+		Integer[] minutes = new Integer[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+				11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26,
+				27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42,
+				43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58,
+				59 };
+		hoursList = new JComboBox<Integer>(hours);
+		minList = new JComboBox<Integer>(minutes);
 
+		button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String input = textBox.getText();
-				// once we can add an Alarms to the PaintComponent we can add
-				// this
-				// input as an alarm
+				Integer alarmHour = (Integer) hoursList.getSelectedItem();
+				Integer alarmMinute = (Integer) minList.getSelectedItem();
+				TimeNow alarm = new TimeNow(alarmHour, alarmMinute, 0);
+				comp.getAlarms().add(alarm);
+				eastPanel.add(new JLabel(alarm.toString()));
 			}
-
 		});
-		panel.add(textBox);
-		panel.add(button);
 
-		contentPane.add(panel, BorderLayout.EAST);
+		eastPanel.add(hoursList);
+		eastPanel.add(minList);
+		eastPanel.add(button);
+		contentPane.add(eastPanel, BorderLayout.EAST);
 	}
 
 	public static void main(String args[]) {
 		final ClockFrame frame = new ClockFrame();
 		frame.setVisible(true);
 
-		// take out after
-		Scanner keyboard = new Scanner(System.in);
-		System.out.println("Enter an alarm time in army time. (hh mm ss)");
-		String input = keyboard.nextLine();
-		String[] array = input.split(" ");
-		int hour = Integer.parseInt(array[0]);
-		int min = Integer.parseInt(array[1]);
-		int sec = Integer.parseInt(array[2]);
-		frame.testAlarm = new TimeNow(hour, min, sec);
-
 		Thread thread = new Thread() {
 			public void run() {
 				while (true) {
-
-					// take out after
-					if (frame.comp.getClock().getTime()
-							.equalsHoursMin(frame.testAlarm)) {
-						System.out.println("alarm");
-					}
-
 					frame.comp.getClock().getTime().tick();
 					frame.repaint();
 					try {
@@ -95,6 +82,5 @@ public class ClockFrame extends JFrame {
 			}
 		};
 		thread.start();
-		keyboard.close();
 	}
 }
