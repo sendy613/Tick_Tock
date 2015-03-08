@@ -1,8 +1,8 @@
 package tick_tock;
 
 import java.sql.Time;
+import java.text.DecimalFormat;
 
-//everything starts with 0
 public class TimeNow {
 	private int hours;
 	private int min;
@@ -30,24 +30,12 @@ public class TimeNow {
 		return hours;
 	}
 
-	public void setHours(int hours) {
-		this.hours = hours;
-	}
-
 	public int getMin() {
 		return min;
 	}
 
-	public void setMin(int min) {
-		this.min = min;
-	}
-
 	public int getSeconds() {
 		return seconds;
-	}
-
-	public void setSeconds(int seconds) {
-		this.seconds = seconds;
 	}
 
 	public Long getCurrTime() {
@@ -58,7 +46,7 @@ public class TimeNow {
 		this.currTime = currTime;
 	}
 
-	public boolean equalsHoursMin(TimeNow t) {
+	public boolean equals(TimeNow t) {
 		if (t.getHours() == this.getHours() && t.getMin() == this.getMin()) {
 			return true;
 		}
@@ -83,9 +71,9 @@ public class TimeNow {
 
 	}
 
-	// take out at end
 	public String toString() {
-		return (getHours() + ": " + getMin() + ":" + getSeconds());
+		DecimalFormat formatter = new DecimalFormat("00");
+		return (formatter.format(getHours()) + ":" + formatter.format(getMin()));
 	}
 
 }
