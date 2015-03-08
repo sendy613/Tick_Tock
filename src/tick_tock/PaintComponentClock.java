@@ -9,7 +9,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 
-public class PaintComponent extends JComponent {
+public class PaintComponentClock extends JComponent {
 
 	private static final long serialVersionUID = 1L;
 	private Clock clock;
@@ -18,7 +18,7 @@ public class PaintComponent extends JComponent {
 	private Image SixEightPM;
 	private Image EightTwelvePM;
 
-	public PaintComponent() {
+	public PaintComponentClock() {
 		this.clock = new Clock();
 		try {
 			this.TwelveSixAM = ImageIO.read(new File("12-6am.png"));
@@ -35,9 +35,6 @@ public class PaintComponent extends JComponent {
 	}
 
 	protected void paintComponent(Graphics g) {
-		// I made the frame 500x700 but based the clock as if it was in a frame
-		// of 500x500.
-		// the remaining 200 should be used for setting the alarms
 		super.paintComponent(g);
 
 		Coordinates coord = new Coordinates();
@@ -56,32 +53,49 @@ public class PaintComponent extends JComponent {
 			image = EightTwelvePM;
 		}
 
+		int radiusWithMargin = Coordinates.radius + Coordinates.clockMargin;
+		int circleWidth = 20;
+
+		// draw Circle of clock
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 		g.setColor(Color.BLACK);
 		g.drawString(clock.getTime().toString(), 10, 10);
-		g.fillOval(25, 10, 450, 450);
+		g.fillOval(Coordinates.clockMargin, Coordinates.clockMargin,
+				Coordinates.radius * 2, Coordinates.radius * 2);
+
 		g.setColor(Color.WHITE);
 		// 12
-		g.fillOval(240, 35, 25, 25);
+		g.fillOval(radiusWithMargin - circleWidth / 2, Coordinates.clockMargin
+				+ 25 - circleWidth / 2, circleWidth, circleWidth);
 		// 6
-		g.fillOval(240, 410, 25, 25);
+		g.fillOval(radiusWithMargin - circleWidth / 2, Coordinates.radius * 2
+				+ Coordinates.clockMargin - 25 - circleWidth / 2, circleWidth,
+				circleWidth);
 		// 9
-		g.fillOval(50, 215, 25, 25);
+		g.fillOval(Coordinates.clockMargin + 25 - circleWidth / 2,
+				radiusWithMargin - circleWidth / 2, circleWidth, circleWidth);
 		// 3
-		g.fillOval(425, 215, 25, 25);
+		g.fillOval(Coordinates.radius * 2 + Coordinates.clockMargin - 25
+				- circleWidth / 2, radiusWithMargin - circleWidth / 2,
+				circleWidth, circleWidth);
 
-		g.setColor(Color.WHITE);
 		// button for handles
-		g.fillOval(245, 225, 10, 10);
+		circleWidth = 10;
+		g.setColor(Color.WHITE);
+		g.fillOval(radiusWithMargin - circleWidth / 2, radiusWithMargin
+				- circleWidth / 2, circleWidth, circleWidth);
 
 		// handles
-		g.drawLine(250, 230, coord.getX(seconds) * 10 + 25, coord.getY(seconds) * 10 + 10); // seconds
-		g.drawLine(250, 230, coord.getX(minutes) * 10 + 25, coord.getY(minutes) * 10 + 10); // minutes
+		g.drawLine(radiusWithMargin, radiusWithMargin, coord.getX(seconds),
+				coord.getY(seconds)); // seconds
+		g.drawLine(radiusWithMargin, radiusWithMargin, coord.getX(minutes),
+				coord.getY(minutes)); // minutes
 		if (hours > 12) {
 			hours -= 12;
 		}
 		int hourPointer = hours * 5 + (minutes / 12);
-		g.drawLine(250, 230, coord.getX(hourPointer) * 10 + 25, coord.getY(hourPointer) * 10 + 10); // hours
+		g.drawLine(radiusWithMargin, radiusWithMargin, coord.getX(hourPointer),
+				coord.getY(hourPointer)); // hours
 
 	}
 }

@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 public class ClockFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 
-	private PaintComponent comp;
+	private PaintComponentClock comp;
 	// private PaintComponentAlarm alarmComp;
 	private JButton button;
 	private JTextField textBox;
@@ -24,14 +24,14 @@ public class ClockFrame extends JFrame {
 	private TimeNow testAlarm;
 
 	public ClockFrame() {
-		setSize(700, 500);
+		setSize(700, 525);
 		setTitle("CLOCK");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new BorderLayout());
-		this.comp = new PaintComponent();
+		this.comp = new PaintComponentClock();
 		contentPane.add(comp, BorderLayout.CENTER);
 		JPanel panel = new JPanel();
 		panel.setLayout(new FlowLayout());
@@ -76,7 +76,8 @@ public class ClockFrame extends JFrame {
 				while (true) {
 
 					// take out after
-					if (frame.comp.getClock().getTime().equalsHoursMin(frame.testAlarm)) {
+					if (frame.comp.getClock().getTime()
+							.equalsHoursMin(frame.testAlarm)) {
 						System.out.println("alarm");
 					}
 

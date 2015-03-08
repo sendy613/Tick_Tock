@@ -10,6 +10,8 @@ import javax.swing.JComponent;
 
 public class PaintComponentAlarm extends JComponent{
 
+	private static final long serialVersionUID = 1L;
+	
 	public PaintComponentAlarm(){
 		
 	}
