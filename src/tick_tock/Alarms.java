@@ -1,6 +1,5 @@
 package tick_tock;
 
-import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
@@ -16,6 +15,7 @@ public class Alarms {
 	private AlarmList alarmList;
 	private Image ringImage;
 	private boolean ring;
+	private int counter;
 
 	public Alarms() {
 		alarmTimes = new ArrayList<TimeNow>();
@@ -23,6 +23,7 @@ public class Alarms {
 		alarmList = new AlarmList(this);
 		ring = false;
 		ringImage = null;
+		counter=0;
 		try {
 			ringImage = ImageIO.read(new File("alarmRing.png"));
 		} catch (IOException e) {
@@ -33,10 +34,15 @@ public class Alarms {
 		alarmTimes.add(time);
 		alarmStrings.add(time.toString());
 		alarmList.addAlarmToList();
+		counter++;
 	}
 
 	public boolean getRing() {
 		return ring;
+	}
+
+	public int getCounter(){
+		return counter;
 	}
 
 	public Vector<String> getAlarmStrings() {
@@ -52,6 +58,7 @@ public class Alarms {
 				if (time.getSeconds() == 59) {
 					alarmTimes.remove(temp);
 					alarmList.remove(i);
+					counter--;
 				}
 				return;
 			}

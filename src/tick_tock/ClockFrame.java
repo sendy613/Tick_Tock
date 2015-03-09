@@ -70,6 +70,11 @@ public class ClockFrame extends JFrame {
 				Integer alarmMinute = (Integer) minList.getSelectedItem();
 				TimeNow alarm = new TimeNow(alarmHour, alarmMinute, 0);
 				comp.getAlarms().add(alarm);
+				if (comp.getAlarms().getCounter() == 10) {
+					hoursList.setEnabled(false);
+					minList.setEnabled(false);
+					button.setEnabled(false);
+				}
 			}
 		});
 
@@ -102,15 +107,21 @@ public class ClockFrame extends JFrame {
 			public void run() {
 
 				while (true) {
+					if (frame.hoursList.isEnabled() == false && frame.comp.getAlarms().getCounter() < 10) {
+						frame.hoursList.setEnabled(true);
+						frame.minList.setEnabled(true);
+						frame.button.setEnabled(true);
+					}
 					frame.comp.getClock().getTime().tick();
 					frame.repaint();
 					InputStream in;
 					AudioStream as = null;
 					try {
-						in = new FileInputStream(new File("./AlarmRinging.mp3"));
+						in = new FileInputStream("./AlarmRinging.mp3");
 						as = new AudioStream(in);
 					} catch (FileNotFoundException e1) {
 					} catch (IOException e) {
+
 					}
 					AudioPlayer.player.start(as);
 					if (frame.comp.getAlarms().getRing() == true) {
