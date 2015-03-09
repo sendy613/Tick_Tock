@@ -52,7 +52,7 @@ public class Alarms {
 			}
 		}
 		ring = false;
-		if (time.isASecondPast(currAlarm)) {
+		if (currAlarm != null && time.isASecondPast(currAlarm)) {
 			dismiss();
 		}
 	}

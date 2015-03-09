@@ -6,17 +6,22 @@ import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileInputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
+
+import sun.applet.Main;
 
 public class ClockFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -124,13 +129,16 @@ public class ClockFrame extends JFrame {
 
 		Thread thread = new Thread() {
 			public void run() {
-				InputStream in;
-				AudioStream as = null;
+				Clip clip = null;
 				try {
-					in = new FileInputStream("./Alarm_Ringing.wav");
-					as = new AudioStream(in);
+					clip = AudioSystem.getClip();
+					AudioInputStream inputStream = AudioSystem
+							.getAudioInputStream(new File("Alarm Ringing.wav"));
+					clip.open(inputStream);
 				} catch (FileNotFoundException e1) {
 				} catch (IOException e) {
+				} catch (LineUnavailableException e) {
+				} catch (UnsupportedAudioFileException e) {
 				}
 				while (true) {
 					if (frame.hoursList.isEnabled() && frame.comp.getAlarms().getCounter() > 10) {
@@ -146,11 +154,12 @@ public class ClockFrame extends JFrame {
 					frame.comp.getAlarms().checkIfCurrentAlarms(frame.comp.getClock().getTime());
 					frame.repaint();
 					if (frame.comp.getAlarms().getRing() == true) {
-						AudioPlayer.player.start(as);
+						clip.start();
 						frame.snooze.setEnabled(true);
 						frame.dismiss.setEnabled(true);
 					} else {
-						AudioPlayer.player.stop(as);
+						clip.stop();
+						clip.setFramePosition(0);
 						frame.snooze.setEnabled(false);
 						frame.dismiss.setEnabled(false);
 					}
