@@ -28,7 +28,6 @@ public class AlarmComponent extends JComponent {
 
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		alarm.checkIfCurrentAlarms(clock.getTime());
 		if (alarm.getRing()) {
 			g.drawImage(ringImage, 0, 0, getWidth(), getHeight(), null);
 		} else {
