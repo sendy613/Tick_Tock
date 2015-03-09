@@ -6,6 +6,7 @@ import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -34,7 +35,7 @@ public class ClockFrame extends JFrame {
 	private JPanel outputPanel;
 	private JPanel picturePanel;
 	private AlarmComponent comp2;
-	
+
 	public ClockFrame() {
 		setSize(700, 525);
 		setTitle("CLOCK");
@@ -44,7 +45,7 @@ public class ClockFrame extends JFrame {
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new BorderLayout());
 		this.comp = new PaintComponent();
-		this.comp2 = new AlarmComponent();
+		this.comp2 = new AlarmComponent(comp.getAlarms(), comp.getClock());
 		contentPane.add(comp, BorderLayout.CENTER);
 		eastPanel = new JPanel();
 		eastPanel.setLayout(new BoxLayout(eastPanel, BoxLayout.PAGE_AXIS));
@@ -99,14 +100,14 @@ public class ClockFrame extends JFrame {
 
 		Thread thread = new Thread() {
 			public void run() {
-			
+
 				while (true) {
 					frame.comp.getClock().getTime().tick();
 					frame.repaint();
 					InputStream in;
-					AudioStream as=null;
+					AudioStream as = null;
 					try {
-						in = new FileInputStream("./Alarm Ringing.mp3");
+						in = new FileInputStream(new File("./AlarmRinging.mp3"));
 						as = new AudioStream(in);
 					} catch (FileNotFoundException e1) {
 					} catch (IOException e) {
@@ -115,7 +116,7 @@ public class ClockFrame extends JFrame {
 					if (frame.comp.getAlarms().getRing() == true) {
 						AudioPlayer.player.start(as);
 					}
-					
+
 					try {
 						Thread.sleep(1000);
 					} catch (InterruptedException e) {

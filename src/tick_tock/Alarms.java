@@ -68,7 +68,7 @@ public class Alarms {
 		return info.toString();
 	}
 
-	public Graphics paint(Graphics g, TimeNow time) {
+/*	public Graphics paint(Graphics g, TimeNow time) {
 		checkIfCurrentAlarms(time);
 		if (ring) {
 			int size = 200;
@@ -76,7 +76,7 @@ public class Alarms {
 					+ Coordinates.clockMargin - size / 2, size, size, null);
 		}
 		return g;
-	}
+	}*/
 
 	public JList getAlarmList() {
 		return alarmList;

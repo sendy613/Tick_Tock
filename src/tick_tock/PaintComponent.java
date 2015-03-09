@@ -55,7 +55,6 @@ public class PaintComponent extends JComponent {
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 
 		g = clock.paint(g);
-		g = alarms.paint(g, clock.getTime());
 
 	}
 }
