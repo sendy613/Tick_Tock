@@ -9,16 +9,16 @@ public class Alarms {
 	private AlarmList alarmList;
 	private boolean ring;
 	private int counter;
+	private TimeNow currAlarm;
+	private int currI;
 
 	public Alarms() {
 		alarmTimes = new ArrayList<TimeNow>();
 		alarmStrings = new Vector<String>();
 		alarmList = new AlarmList(alarmStrings);
 		ring = false;
-<<<<<<< HEAD
-=======
 		counter = 0;
->>>>>>> origin/master
+
 	}
 
 	public void add(TimeNow time) {
@@ -46,37 +46,34 @@ public class Alarms {
 			temp = alarmTimes.get(i);
 			if (temp.equals(time)) {
 				ring = true;
-				if (time.getSeconds() == 59) {
-					alarmTimes.remove(temp);
-					alarmList.remove(i);
-					counter--;
-				}
+				currAlarm = temp;
+				currI = i;
 				return;
 			}
 		}
 		ring = false;
-	}
-
-	public void dismiss(TimeNow time) {
-		TimeNow temp;
-		for (int i = 0; i < alarmTimes.size(); i++) {
-			temp = alarmTimes.get(i);
-			if (temp.equals(time)) {
-				alarmTimes.remove(temp);
-				alarmList.remove(i);
-				counter--;
-			}
+		if (time.isASecondPast(currAlarm)) {
+			dismiss();
 		}
 	}
 
-	public void snooze(TimeNow time) {
-		dismiss(time);
-		for (int i = 0; i <300; i++) {
-			time.tick();
+	public void dismiss() {
+		alarmTimes.remove(currAlarm);
+		alarmStrings.remove(currAlarm.toString());
+		alarmList.remove(currI);
+		counter--;
+		currAlarm = null;
+		currI = -1;
+	}
+
+	public void snooze() {
+		for (int i = 0; i < 300; i++) {
+			currAlarm.tick();
 		}
-		TimeNow newAlarm = new TimeNow(time.getHours(), time.getMin(), 0);
+		TimeNow newAlarm = new TimeNow(currAlarm.getHours(),
+				currAlarm.getMin(), 0);
 		add(newAlarm);
-		
+		dismiss();
 	}
 
 	public String toString() {

@@ -76,4 +76,20 @@ public class TimeNow {
 		return (formatter.format(getHours()) + ":" + formatter.format(getMin()));
 	}
 
+	public boolean isASecondPast(TimeNow currAlarm) {
+		if (this.seconds == 0) {
+			if (currAlarm.hours == 23 && currAlarm.min == 59 && this.hours == 0
+					&& this.min == 0) {
+				return true;
+			} else if (currAlarm.min == 59 && this.min == 0
+					&& this.hours - currAlarm.hours == 1) {
+				return true;
+			} else if (currAlarm.hours == this.hours
+					&& this.min - currAlarm.min == 1) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 }
