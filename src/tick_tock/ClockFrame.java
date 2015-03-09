@@ -84,10 +84,10 @@ public class ClockFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				comp.getAlarms().snooze(comp.getClock().getTime());
-				
+
 			}
 		});
-		
+
 		dismiss = new JButton("Dismiss");
 		dismiss.setBackground(blue);
 		dismiss.addActionListener(new ActionListener() {
@@ -137,8 +137,7 @@ public class ClockFrame extends JFrame {
 						frame.hoursList.setEnabled(false);
 						frame.minList.setEnabled(false);
 						frame.button.setEnabled(false);
-					}
-					else if(!frame.hoursList.isEnabled() && frame.comp.getAlarms().getCounter() < 10){
+					} else if (!frame.hoursList.isEnabled() && frame.comp.getAlarms().getCounter() < 10) {
 						frame.hoursList.setEnabled(true);
 						frame.minList.setEnabled(true);
 						frame.button.setEnabled(true);
@@ -150,9 +149,7 @@ public class ClockFrame extends JFrame {
 					} else {
 						AudioPlayer.player.stop(as);
 					}
-					else{
-						AudioPlayer.player.stop(as);;
-					}
+
 					try {
 						Thread.sleep(1000);
 					} catch (InterruptedException e) {
