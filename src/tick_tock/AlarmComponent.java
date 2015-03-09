@@ -9,6 +9,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 
 public class AlarmComponent extends JComponent {
+
+	private static final long serialVersionUID = 1L;
 	private Image sleepingImage;
 	private Image ringImage;
 	private Alarms alarm;

@@ -77,12 +77,9 @@ public class ClockFrame extends JFrame {
 
 		inputPanel = new JPanel(new FlowLayout());
 		inputPanel.setBackground(Color.WHITE);
-		// Border border = BorderFactory.createRaisedBevelBorder();
-		// inputPanel.setBorder(border);
 		outputPanel = new JPanel();
 		outputPanel.setLayout(new BoxLayout(outputPanel, BoxLayout.PAGE_AXIS));
 		outputPanel.setBackground(Color.WHITE);
-		// outputPanel.setBorder(border);
 		outputPanel.add(comp.getAlarms().getAlarmList());
 		inputPanel.add(hoursList);
 		inputPanel.add(minList);
@@ -112,28 +109,23 @@ public class ClockFrame extends JFrame {
 				} catch (IOException e) {
 				}
 				while (true) {
-					if (frame.hoursList.isEnabled() == false && frame.comp.getAlarms().getCounter() < 10) {
+					if (frame.hoursList.isEnabled() && frame.comp.getAlarms().getCounter() > 10) {
+						frame.hoursList.setEnabled(false);
+						frame.minList.setEnabled(false);
+						frame.button.setEnabled(false);
+					}
+					else if(!frame.hoursList.isEnabled() && frame.comp.getAlarms().getCounter() < 10){
 						frame.hoursList.setEnabled(true);
 						frame.minList.setEnabled(true);
 						frame.button.setEnabled(true);
 					}
 					frame.comp.getClock().getTime().tick();
 					frame.repaint();
-<<<<<<< HEAD
-					InputStream in;
-					AudioStream as = null;
-					try {
-						in = new FileInputStream("./AlarmRinging.mp3");
-						as = new AudioStream(in);
-					} catch (FileNotFoundException e1) {
-					} catch (IOException e) {
-
-					}
-					AudioPlayer.player.start(as);
-=======
->>>>>>> origin/master
 					if (frame.comp.getAlarms().getRing() == true) {
 						AudioPlayer.player.start(as);
+					}
+					else{
+						AudioPlayer.player.stop(as);;
 					}
 					try {
 						Thread.sleep(1000);

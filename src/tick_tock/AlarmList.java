@@ -10,8 +10,8 @@ public class AlarmList extends JList<String> {
 	private DefaultListModel<String> alarmStringsModel;
 	private Vector<String> alarmStrings;
 
-	public AlarmList(Alarms alarms) {
-		alarmStrings = alarms.getAlarmStrings();
+	public AlarmList(Vector<String> alarmStrings) {
+		this.alarmStrings = alarmStrings;
 		alarmStringsModel = new DefaultListModel<String>();
 		for (String temp : alarmStrings) {
 			alarmStringsModel.addElement(temp);
