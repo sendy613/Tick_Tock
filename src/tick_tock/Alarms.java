@@ -8,16 +8,19 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
+import javax.swing.JList;
 
 public class Alarms {
 	private ArrayList<TimeNow> alarmTimes;
 	private Vector<String> alarmStrings;
+	private AlarmList alarmList;
 	private Image ringImage;
 	private boolean ring;
 
 	public Alarms() {
 		alarmTimes = new ArrayList<TimeNow>();
 		alarmStrings = new Vector<String>();
+		alarmList = new AlarmList(this);
 		ring = false;
 		ringImage = null;
 		try {
@@ -29,6 +32,7 @@ public class Alarms {
 	public void add(TimeNow time) {
 		alarmTimes.add(time);
 		alarmStrings.add(time.toString());
+		alarmList.addAlarmToList();
 	}
 
 	public boolean getRing() {
@@ -40,11 +44,14 @@ public class Alarms {
 	}
 
 	public void checkIfCurrentAlarms(TimeNow time) {
-		for (TimeNow temp : alarmTimes) {
+		TimeNow temp;
+		for (int i = 0; i < alarmTimes.size(); i++) {
+			temp = alarmTimes.get(i);
 			if (temp.equals(time)) {
 				ring = true;
 				if (time.getSeconds() == 59) {
 					alarmTimes.remove(temp);
+					alarmList.remove(i);
 				}
 				return;
 			}
@@ -65,10 +72,13 @@ public class Alarms {
 		checkIfCurrentAlarms(time);
 		if (ring) {
 			int size = 200;
-			g.drawImage(ringImage, Coordinates.radius + Coordinates.clockMargin
-					- size / 2, Coordinates.radius + Coordinates.clockMargin
-					- size / 2, size, size, null);
+			g.drawImage(ringImage, Coordinates.radius + Coordinates.clockMargin - size / 2, Coordinates.radius
+					+ Coordinates.clockMargin - size / 2, size, size, null);
 		}
 		return g;
+	}
+
+	public JList getAlarmList() {
+		return alarmList;
 	}
 }

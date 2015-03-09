@@ -25,7 +25,8 @@ public class Clock {
 		Coordinates coord = new Coordinates();
 
 		// draw Circle of clock
-		g.setColor(Color.BLACK);
+		Color color = new Color(0,204,204);
+		g.setColor(color);
 		g.fillOval(Coordinates.clockMargin, Coordinates.clockMargin,
 				Coordinates.radius * 2, Coordinates.radius * 2);
 
