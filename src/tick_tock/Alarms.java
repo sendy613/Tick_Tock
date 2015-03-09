@@ -1,18 +1,12 @@
 package tick_tock;
 
-import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Vector;
-import javax.imageio.ImageIO;
-import javax.swing.JList;
 
 public class Alarms {
 	private ArrayList<TimeNow> alarmTimes;
 	private Vector<String> alarmStrings;
 	private AlarmList alarmList;
-	private Image ringImage;
 	private boolean ring;
 	private int counter;
 
@@ -21,12 +15,7 @@ public class Alarms {
 		alarmStrings = new Vector<String>();
 		alarmList = new AlarmList(this);
 		ring = false;
-		ringImage = null;
-		counter=0;
-		try {
-			ringImage = ImageIO.read(new File("alarmRing.png"));
-		} catch (IOException e) {
-		}
+		counter = 0;
 	}
 
 	public void add(TimeNow time) {
@@ -40,7 +29,7 @@ public class Alarms {
 		return ring;
 	}
 
-	public int getCounter(){
+	public int getCounter() {
 		return counter;
 	}
 
@@ -65,6 +54,28 @@ public class Alarms {
 		ring = false;
 	}
 
+	public void dismiss(TimeNow time) {
+		TimeNow temp;
+		for (int i = 0; i < alarmTimes.size(); i++) {
+			temp = alarmTimes.get(i);
+			if (temp.equals(time)) {
+				alarmTimes.remove(temp);
+				alarmList.remove(i);
+				counter--;
+			}
+		}
+	}
+
+	public void snooze(TimeNow time) {
+		dismiss(time);
+		for (int i = 0; i <300; i++) {
+			time.tick();
+		}
+		TimeNow newAlarm = new TimeNow(time.getHours(), time.getMin(), 0);
+		add(newAlarm);
+		
+	}
+
 	public String toString() {
 		StringBuilder info = new StringBuilder();
 		for (TimeNow alarm : alarmTimes) {
@@ -74,17 +85,7 @@ public class Alarms {
 		return info.toString();
 	}
 
-/*	public Graphics paint(Graphics g, TimeNow time) {
-		checkIfCurrentAlarms(time);
-		if (ring) {
-			int size = 200;
-			g.drawImage(ringImage, Coordinates.radius + Coordinates.clockMargin - size / 2, Coordinates.radius
-					+ Coordinates.clockMargin - size / 2, size, size, null);
-		}
-		return g;
-	}*/
-
-	public JList getAlarmList() {
+	public AlarmList getAlarmList() {
 		return alarmList;
 	}
 }

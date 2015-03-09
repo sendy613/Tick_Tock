@@ -30,6 +30,9 @@ public class ClockFrame extends JFrame {
 	private JPanel outputPanel;
 	private JPanel picturePanel;
 	private AlarmComponent comp2;
+	private JPanel buttonPanel;
+	public JButton snooze;
+	public JButton dismiss;
 
 	public ClockFrame() {
 		setSize(700, 525);
@@ -48,13 +51,11 @@ public class ClockFrame extends JFrame {
 		this.button = new JButton("Add Alarm");
 		Color blue = new Color(0, 204, 204);
 		button.setBackground(blue);
-		Integer[] hours = new Integer[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
-				12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23 };
-		Integer[] minutes = new Integer[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-				11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26,
-				27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42,
-				43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58,
-				59 };
+		Integer[] hours = new Integer[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+				22, 23 };
+		Integer[] minutes = new Integer[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+				21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46,
+				47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59 };
 		hoursList = new JComboBox<Integer>(hours);
 		minList = new JComboBox<Integer>(minutes);
 		hoursList.setBackground(blue);
@@ -74,6 +75,27 @@ public class ClockFrame extends JFrame {
 				}
 			}
 		});
+		buttonPanel = new JPanel();
+		buttonPanel.setBackground(Color.WHITE);
+		buttonPanel.setLayout(new FlowLayout());
+		snooze = new JButton("Snooze");
+		snooze.setBackground(blue);
+		snooze.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				comp.getAlarms().snooze(comp.getClock().getTime());
+				
+			}
+		});
+		
+		dismiss = new JButton("Dismiss");
+		dismiss.setBackground(blue);
+		dismiss.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				comp.getAlarms().dismiss(comp.getClock().getTime());
+			}
+		});
 
 		inputPanel = new JPanel(new FlowLayout());
 		inputPanel.setBackground(Color.WHITE);
@@ -88,9 +110,11 @@ public class ClockFrame extends JFrame {
 		inputPanel.add(minList);
 		inputPanel.add(button);
 		picturePanel = new JPanel();
-		picturePanel
-				.setLayout(new BoxLayout(picturePanel, BoxLayout.LINE_AXIS));
+		picturePanel.setLayout(new BoxLayout(picturePanel, BoxLayout.PAGE_AXIS));
 		picturePanel.add(comp2);
+		buttonPanel.add(snooze);
+		buttonPanel.add(dismiss);
+		picturePanel.add(buttonPanel);
 		eastPanel.add(inputPanel);
 		eastPanel.add(outputPanel);
 		eastPanel.add(picturePanel);
@@ -119,21 +143,10 @@ public class ClockFrame extends JFrame {
 					}
 					frame.comp.getClock().getTime().tick();
 					frame.repaint();
-<<<<<<< HEAD
-					InputStream in;
-					AudioStream as = null;
-					try {
-						in = new FileInputStream("./AlarmRinging.mp3");
-						as = new AudioStream(in);
-					} catch (FileNotFoundException e1) {
-					} catch (IOException e) {
-
-					}
-					AudioPlayer.player.start(as);
-=======
->>>>>>> origin/master
 					if (frame.comp.getAlarms().getRing() == true) {
 						AudioPlayer.player.start(as);
+					} else {
+						AudioPlayer.player.stop(as);
 					}
 					try {
 						Thread.sleep(1000);
