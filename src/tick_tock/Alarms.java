@@ -15,6 +15,10 @@ public class Alarms {
 		alarmStrings = new Vector<String>();
 		alarmList = new AlarmList(alarmStrings);
 		ring = false;
+<<<<<<< HEAD
+=======
+		counter = 0;
+>>>>>>> origin/master
 	}
 
 	public void add(TimeNow time) {
@@ -28,7 +32,7 @@ public class Alarms {
 		return ring;
 	}
 
-	public int getCounter(){
+	public int getCounter() {
 		return counter;
 	}
 
@@ -51,6 +55,28 @@ public class Alarms {
 			}
 		}
 		ring = false;
+	}
+
+	public void dismiss(TimeNow time) {
+		TimeNow temp;
+		for (int i = 0; i < alarmTimes.size(); i++) {
+			temp = alarmTimes.get(i);
+			if (temp.equals(time)) {
+				alarmTimes.remove(temp);
+				alarmList.remove(i);
+				counter--;
+			}
+		}
+	}
+
+	public void snooze(TimeNow time) {
+		dismiss(time);
+		for (int i = 0; i <300; i++) {
+			time.tick();
+		}
+		TimeNow newAlarm = new TimeNow(time.getHours(), time.getMin(), 0);
+		add(newAlarm);
+		
 	}
 
 	public String toString() {
