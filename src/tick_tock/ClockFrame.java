@@ -3,6 +3,7 @@ package tick_tock;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -51,16 +52,16 @@ public class ClockFrame extends JFrame {
 		eastPanel = new JPanel();
 		eastPanel.setLayout(new BoxLayout(eastPanel, BoxLayout.PAGE_AXIS));
 		eastPanel.setBackground(Color.WHITE);
+		Dimension eastDim = new Dimension(200, 525);
+		eastPanel.setMaximumSize(eastDim);
 		this.button = new JButton("Add Alarm");
 		Color blue = new Color(0, 204, 204);
 		button.setBackground(blue);
-		Integer[] hours = new Integer[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
-				12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23 };
-		Integer[] minutes = new Integer[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-				11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26,
-				27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42,
-				43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58,
-				59 };
+		Integer[] hours = new Integer[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+				22, 23 };
+		Integer[] minutes = new Integer[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+				21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46,
+				47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59 };
 		hoursList = new JComboBox<Integer>(hours);
 		minList = new JComboBox<Integer>(minutes);
 		hoursList.setBackground(blue);
@@ -83,6 +84,8 @@ public class ClockFrame extends JFrame {
 		buttonPanel = new JPanel();
 		buttonPanel.setBackground(Color.WHITE);
 		buttonPanel.setLayout(new FlowLayout());
+		Dimension buttonDim = new Dimension(200, 30);
+		buttonPanel.setMaximumSize(buttonDim);
 		snooze = new JButton("Snooze");
 		snooze.setBackground(blue);
 		snooze.addActionListener(new ActionListener() {
@@ -104,16 +107,21 @@ public class ClockFrame extends JFrame {
 
 		inputPanel = new JPanel(new FlowLayout());
 		inputPanel.setBackground(Color.WHITE);
+		Dimension inputDim = new Dimension(200, 75);
+		inputPanel.setMaximumSize(inputDim);
 		outputPanel = new JPanel();
 		outputPanel.setLayout(new BoxLayout(outputPanel, BoxLayout.PAGE_AXIS));
 		outputPanel.setBackground(Color.WHITE);
+		Dimension outputDim = new Dimension(200, 200);
+		outputPanel.setMaximumSize(outputDim);
 		outputPanel.add(comp.getAlarms().getAlarmList());
 		inputPanel.add(hoursList);
 		inputPanel.add(minList);
 		inputPanel.add(button);
 		picturePanel = new JPanel();
-		picturePanel
-				.setLayout(new BoxLayout(picturePanel, BoxLayout.PAGE_AXIS));
+		picturePanel.setLayout(new BoxLayout(picturePanel, BoxLayout.PAGE_AXIS));
+		Dimension pictureDim = new Dimension(200, 250);
+		picturePanel.setMaximumSize(pictureDim);
 		picturePanel.add(comp2);
 		buttonPanel.add(snooze);
 		buttonPanel.add(dismiss);
@@ -133,8 +141,7 @@ public class ClockFrame extends JFrame {
 				Clip clip = null;
 				try {
 					clip = AudioSystem.getClip();
-					AudioInputStream inputStream = AudioSystem
-							.getAudioInputStream(new File("Alarm Ringing.wav"));
+					AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File("Alarm Ringing.wav"));
 					clip.open(inputStream);
 				} catch (FileNotFoundException e1) {
 				} catch (IOException e) {
@@ -142,20 +149,17 @@ public class ClockFrame extends JFrame {
 				} catch (UnsupportedAudioFileException e) {
 				}
 				while (true) {
-					if (frame.hoursList.isEnabled()
-							&& frame.comp.getAlarms().getCounter() > 10) {
+					if (frame.hoursList.isEnabled() && frame.comp.getAlarms().getCounter() > 10) {
 						frame.hoursList.setEnabled(false);
 						frame.minList.setEnabled(false);
 						frame.button.setEnabled(false);
-					} else if (!frame.hoursList.isEnabled()
-							&& frame.comp.getAlarms().getCounter() < 10) {
+					} else if (!frame.hoursList.isEnabled() && frame.comp.getAlarms().getCounter() < 10) {
 						frame.hoursList.setEnabled(true);
 						frame.minList.setEnabled(true);
 						frame.button.setEnabled(true);
 					}
 					frame.comp.getClock().getTime().tick();
-					frame.comp.getAlarms().checkIfCurrentAlarms(
-							frame.comp.getClock().getTime());
+					frame.comp.getAlarms().checkIfCurrentAlarms(frame.comp.getClock().getTime());
 					frame.repaint();
 					if (frame.comp.getAlarms().getRing() == true) {
 						clip.start();
