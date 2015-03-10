@@ -46,15 +46,15 @@ public class ClockFrame extends JFrame {
 
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new BorderLayout());
-		this.comp = new PaintComponent();
-		this.comp2 = new AlarmComponent(comp.getAlarms(), comp.getClock());
+		comp = new PaintComponent();
+		comp2 = new AlarmComponent(comp.getAlarms(), comp.getClock());
 		contentPane.add(comp, BorderLayout.CENTER);
 		eastPanel = new JPanel();
 		eastPanel.setLayout(new BoxLayout(eastPanel, BoxLayout.PAGE_AXIS));
 		eastPanel.setBackground(Color.WHITE);
 		Dimension eastDim = new Dimension(200, 525);
 		eastPanel.setMaximumSize(eastDim);
-		this.button = new JButton("Add Alarm");
+		button = new JButton("Add Alarm");
 		Color blue = new Color(0, 204, 204);
 		button.setBackground(blue);
 		Integer[] hours = new Integer[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
@@ -120,6 +120,7 @@ public class ClockFrame extends JFrame {
 		inputPanel.add(button);
 		picturePanel = new JPanel();
 		picturePanel.setLayout(new BoxLayout(picturePanel, BoxLayout.PAGE_AXIS));
+		picturePanel.setBackground(Color.WHITE);
 		Dimension pictureDim = new Dimension(200, 250);
 		picturePanel.setMaximumSize(pictureDim);
 		picturePanel.add(comp2);

@@ -18,13 +18,13 @@ public class PaintComponent extends JComponent {
 	private Image EightTwelvePM;
 
 	public PaintComponent() {
-		this.clock = new Clock();
-		this.alarms = new Alarms();
+		clock = new Clock();
+		alarms = new Alarms();
 		try {
-			this.TwelveSixAM = ImageIO.read(new File("12-6am.png"));
-			this.SixSix = ImageIO.read(new File("6-6.png"));
-			this.SixEightPM = ImageIO.read(new File("6-8pm.png"));
-			this.EightTwelvePM = ImageIO.read(new File("8-12pm.png"));
+			TwelveSixAM = ImageIO.read(new File("12-6am.png"));
+			SixSix = ImageIO.read(new File("6-6.png"));
+			SixEightPM = ImageIO.read(new File("6-8pm.png"));
+			EightTwelvePM = ImageIO.read(new File("8-12pm.png"));
 
 		} catch (IOException e) {
 		}

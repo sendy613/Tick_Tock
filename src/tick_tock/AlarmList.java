@@ -23,7 +23,8 @@ public class AlarmList extends JList<String> {
 		String newAlarm = alarmStrings.get(alarmStrings.size() - 1);
 		alarmStringsModel.addElement(newAlarm);
 	}
-	public void remove(int i){
+
+	public void remove(int i) {
 		alarmStringsModel.removeElementAt(i);
 	}
 

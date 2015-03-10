@@ -14,9 +14,9 @@ public class TimeNow {
 		Time time = new Time(currTime);
 		String s = time.toString();
 		String[] array = s.split(":");
-		this.hours = Integer.parseInt(array[0]);
-		this.min = Integer.parseInt(array[1]);
-		this.seconds = Integer.parseInt(array[2]);
+		hours = Integer.parseInt(array[0]);
+		min = Integer.parseInt(array[1]);
+		seconds = Integer.parseInt(array[2]);
 
 	}
 
@@ -78,14 +78,11 @@ public class TimeNow {
 
 	public boolean isASecondPast(TimeNow currAlarm) {
 		if (this.seconds == 0) {
-			if (currAlarm.hours == 23 && currAlarm.min == 59 && this.hours == 0
-					&& this.min == 0) {
+			if (currAlarm.hours == 23 && currAlarm.min == 59 && this.hours == 0 && this.min == 0) {
 				return true;
-			} else if (currAlarm.min == 59 && this.min == 0
-					&& this.hours - currAlarm.hours == 1) {
+			} else if (currAlarm.min == 59 && this.min == 0 && this.hours - currAlarm.hours == 1) {
 				return true;
-			} else if (currAlarm.hours == this.hours
-					&& this.min - currAlarm.min == 1) {
+			} else if (currAlarm.hours == this.hours && this.min - currAlarm.min == 1) {
 				return true;
 			}
 		}

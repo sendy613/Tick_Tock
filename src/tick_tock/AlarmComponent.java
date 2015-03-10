@@ -14,7 +14,6 @@ public class AlarmComponent extends JComponent {
 	private Image sleepingImage;
 	private Image ringImage;
 	private Alarms alarm;
-	private Clock clock;
 
 	public AlarmComponent(Alarms alarm, Clock clock) {
 		try {
@@ -23,7 +22,6 @@ public class AlarmComponent extends JComponent {
 		} catch (IOException e) {
 		}
 		this.alarm = alarm;
-		this.clock = clock;
 	}
 
 	protected void paintComponent(Graphics g) {

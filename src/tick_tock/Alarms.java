@@ -70,8 +70,7 @@ public class Alarms {
 		for (int i = 0; i < 300; i++) {
 			currAlarm.tick();
 		}
-		TimeNow newAlarm = new TimeNow(currAlarm.getHours(),
-				currAlarm.getMin(), 0);
+		TimeNow newAlarm = new TimeNow(currAlarm.getHours(), currAlarm.getMin(), 0);
 		add(newAlarm);
 		dismiss();
 	}
