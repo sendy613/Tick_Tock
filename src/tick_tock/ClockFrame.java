@@ -23,8 +23,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class ClockFrame extends JFrame {
+	
 	private static final long serialVersionUID = 1L;
-
 	private PaintComponent comp;
 	private JButton button;
 	private JComboBox<Integer> hoursList;
